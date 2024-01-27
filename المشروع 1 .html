@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- تم تعديل علامة الـ viewport لمنع التكبير -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Researcher on Torrent sites</title>
+  <style>
+    .search-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 50px;
+    }
+    .search-box {
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 15px;
+    }
+    .search-box input,
+    .search-box select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 5px;
+    }
+    .search-box button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .title {
+      margin-bottom: 20px;
+    }
+    .title .torrent-word {
+      color: #008000; /* اللون الأخضر */
+    }
+  </style>
+</head>
+<body>
+  <div class="search-container">
+    <h1 class="title">Researcher on <span class="torrent-word">Torrent</span> sites</h1>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Enter search terms">
+      <select id="siteSelector">
+        <option value="limetorrents">LimeTorrents</option>
+        <option value="yts">YTS</option>
+        <option value="1337x">1337x</option>
+        <option value="torrentdownloads">TorrentDownloads</option>
+        <option value="thepiratebay">The Pirate Bay</option>
+        <option value="torrentgalaxy">TorrentGalaxy</option>
+        <option value="eztvx">EZTV</option>
+        <option value="nyaa">Nyaa</option>
+      </select>
+      <button type="button" onclick="performSearch()">Search</button>
+    </div>
+  </div>
+
+  <script>
+    function performSearch() {
+      var searchQuery = document.getElementById('searchInput').value.trim();
+      var selectedSite = document.getElementById('siteSelector').value;
+      
+      if (searchQuery.length === 0) {
+        alert('Please enter search terms.');
+        return;
+      }
+      
+      var baseUrl = '';
+      var queryForURL = searchQuery.split(' ').join('-'); // استخدم الشرطة (-) لفصل كلمات البحث بشكل افتراضي
+      
+      switch (selectedSite) {
+        case 'limetorrents':
+          baseUrl = 'https://www.limetorrents.lol/search/all/' + queryForURL;
+          break;
+        case 'yts':
+          baseUrl = 'https://yts.mx/browse-movies/' + encodeURIComponent(queryForURL) + '/all/all/0/latest';
+          break;
+        case '1337x':
+          baseUrl = 'https://www.1337x.tw/search/' + queryForURL + '/1/';
+          break;
+        case 'torrentdownloads':
+          baseUrl = 'https://www.torrentdownloads.pro/search/?search=' + queryForURL;
+          break;
+        case 'thepiratebay':
+          baseUrl = 'https://thepiratebay0.org/search.php?q=' + queryForURL;
+          break;
+        case 'torrentgalaxy':
+          queryForURL = searchQuery.split(' ').join('+');
+          baseUrl = 'https://torrentgalaxy.to/search.php?search=' + queryForURL;
+          break;
+        case 'eztvx':
+          baseUrl = 'https://eztvx.to/search/' + queryForURL;
+          break;
+        case 'nyaa':
+          baseUrl = 'https://nyaa.si/?f=0&c=0_0&q=' + queryForURL;
+          break;
+        default:
+          alert('Please select a torrent site');
+          return;
+      }
+
+      window.open(baseUrl, '_blank');
+    }
+  </script>
+</body>
+</html>
